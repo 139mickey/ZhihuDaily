@@ -10,7 +10,6 @@
 <script>
   import Time from '../libs/time'
   import vNewsComment from './Comment.vue'
-  import $ from '../libs/util'
   import { asyncGetArticle } from '../api/article'
 
   export default {
@@ -31,56 +30,6 @@
       }
     },
     methods: {
-/*
-      extractHostname: function (url) {
-        var hostname
-        // find & remove protocol (http, ftp, etc.) and get hostname
-
-        if (url.indexOf('//') > -1) {
-          hostname = url.split('/')[2]
-        }
-        else {
-          hostname = url.split('/')[0]
-        }
-
-        // find & remove port number
-        hostname = hostname.split(':')[0]
-        // find & remove "?"
-        hostname = hostname.split('?')[0]
-
-        return hostname
-      },
-
-      getArticle: function () {
-        $.ajax.get('news/' + this.id).then(res => {
-          res.body = res.body
-            .replace(/src="http/g, 'src="' + $.imgPath + 'http')
-          res.body = res.body
-            .replace(/src="https/g, 'src="' + $.imgPath + 'https')
-
-          var imgHostName = this.extractHostname(res.image).split('.')[0]
-          if (imgHostName === 'pic3') {
-            res.image = $.imgPath + res.image
-          }
-          // console.log(imgHostName);
-
-          this.data = res
-          window.scrollTo(0, 0)
-        })
-      },
-      asyncGetArticle: async function () {
-        const response = await $.ajax.get('news/' + this.id)
-        response.body = response.body.replace(/src="http/g, 'src="' + $.imgPath + 'http')
-        response.body = response.body.replace(/src="https/g, 'src="' + $.imgPath + 'https')
-
-        var imgHostName = this.extractHostname(response.image).split('.')[0]
-        if (imgHostName === 'pic3') {
-          response.image = $.imgPath + response.image
-        }
-        this.data = response
-        window.scrollTo(0, 0)
-      },
-      */
     },
     watch: {
       id: async function (val) {
@@ -99,7 +48,14 @@
     margin-left: 450px;
     padding: 20px;
   }
-
+  .daily-article figure{
+    margin: 0px;
+    padding:0px;
+  }
+  .daily-article img {
+    max-width: 640px;
+    height: auto;
+  }
   .daily-article-title {
     font-size: 28px;
     font-weight: bold;

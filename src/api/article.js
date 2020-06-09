@@ -1,17 +1,5 @@
 import $ from '../libs/util'
 
-export async function asyncGetRecommendationList () {
-  const today = $.getTodayTime()
-  const prevDay = $.prevDay(today + $.MILLISECONDS_PER_DAY) // 86400000)
-  try {
-    const response = await $.ajax.get('news/before/' + prevDay)
-    return response
-  } catch (e) {
-    // TODO handle the exception
-    console.error(e)
-  }
-}
-
 function extractHostname (url) {
   var hostname
   // find & remove protocol (http, ftp, etc.) and get hostname
@@ -28,6 +16,39 @@ function extractHostname (url) {
   hostname = hostname.split('?')[0]
 
   return hostname
+}
+
+function translateImgUrl (url) {
+  return $.imgPath + url
+}
+
+export function translateArrayImgUrl (arr) {
+  /*
+  for (let i in arr) {
+    arr[i].image = translateImgUrl(arr[i].image)
+  }
+  */
+  arr.forEach(element => element.image = translateImgUrl(element.image))
+}
+
+export async function asyncGetLastNews () {
+  try {
+    const response = await $.ajax.get('news/latest')
+    return response
+  } catch (e) {
+    // TODO handle the exception
+    console.error(e)
+  }
+}
+
+export async function asyncGetNewsBeforeDate (strDate) {
+  try {
+    const response = await $.ajax.get('news/before/' + strDate)
+    return response
+  } catch (e) {
+    // TODO handle the exception
+    console.error(e)
+  }
 }
 
 export async function asyncGetArticle (id) {
